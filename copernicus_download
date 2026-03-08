@@ -1,8 +1,15 @@
 import copernicusmarine
 
-#Sea ice area fraction
+# =============================================
+# Copernicus Marine data download
+# All dynamic variables: surface layer only (0-0.5 m), daily
+# Extent: lon 15-31, lat 53.5-66 (full Baltic)
+# Years: 2008-2012
+# =============================================
+
+# Sea ice area fraction (no depth dimension)
 for year in range(2008, 2013):
-    print(f"Downloading {year}...")
+    print(f"Downloading ice_concentration {year}...")
     copernicusmarine.subset(
         dataset_id        = "cmems_obs-si_bal_seaice-conc_my_1km",
         variables         = ["ice_concentration"],
@@ -12,14 +19,14 @@ for year in range(2008, 2013):
         maximum_latitude  = 66.0,
         start_datetime    = f"{year}-01-01T00:00:00",
         end_datetime      = f"{year}-12-31T00:00:00",
-        output_filename   = f"ice_conc_{year}.nc",
+        output_filename   = f"ice_concentration_{year}.nc",
         output_directory  = "/Users/joosejanatuinen/Desktop/Artikkeli/env_data/ice_concentration"
     )
-    print(f"{year} done.")
+    print(f"  {year} done.")
 
-#SEA ICE THICKNESS
+# Sea ice thickness (no depth dimension)
 for year in range(2008, 2013):
-    print(f"Downloading {year}...")
+    print(f"Downloading ice_thickness {year}...")
     copernicusmarine.subset(
         dataset_id        = "cmems_obs-si_bal_phy-sit_my_l4-1km_P1D-m",
         variables         = ["ice_thickness"],
@@ -29,31 +36,33 @@ for year in range(2008, 2013):
         maximum_latitude  = 66.0,
         start_datetime    = f"{year}-01-01T00:00:00",
         end_datetime      = f"{year}-12-31T00:00:00",
-        output_filename   = f"ice_thick_{year}.nc",
+        output_filename   = f"ice_thickness_{year}.nc",
         output_directory  = "/Users/joosejanatuinen/Desktop/Artikkeli/env_data/ice_thickness"
     )
-    print(f"{year} done.")
+    print(f"  {year} done.")
 
-#SST
+# SST - daily (P1D), surface only
 for year in range(2008, 2013):
-    print(f"Downloading {year}...")
+    print(f"Downloading sst {year}...")
     copernicusmarine.subset(
-        dataset_id        = "cmems_mod_bal_phy_my_P1M-m",
+        dataset_id        = "cmems_mod_bal_phy_my_P1D-m",
         variables         = ["thetao"],
         minimum_longitude = 15.0,
         maximum_longitude = 31.0,
         minimum_latitude  = 53.5,
         maximum_latitude  = 66.0,
+        minimum_depth     = 0.0,
+        maximum_depth     = 0.5,
         start_datetime    = f"{year}-01-01T00:00:00",
         end_datetime      = f"{year}-12-31T00:00:00",
         output_filename   = f"sst_{year}.nc",
         output_directory  = "/Users/joosejanatuinen/Desktop/Artikkeli/env_data/sst"
     )
-    print(f"{year} done.")
+    print(f"  {year} done.")
 
-#Salinity
+# Salinity - daily, surface only
 for year in range(2008, 2013):
-    print(f"Downloading {year}...")
+    print(f"Downloading salinity {year}...")
     copernicusmarine.subset(
         dataset_id        = "cmems_mod_bal_phy_my_P1D-m",
         variables         = ["so"],
@@ -61,15 +70,18 @@ for year in range(2008, 2013):
         maximum_longitude = 31.0,
         minimum_latitude  = 53.5,
         maximum_latitude  = 66.0,
+        minimum_depth     = 0.0,
+        maximum_depth     = 0.5,
         start_datetime    = f"{year}-01-01T00:00:00",
         end_datetime      = f"{year}-12-31T00:00:00",
         output_filename   = f"salinity_{year}.nc",
         output_directory  = "/Users/joosejanatuinen/Desktop/Artikkeli/env_data/salinity"
     )
-    print(f"{year} done.")
+    print(f"  {year} done.")
 
+# Chlorophyll - daily, surface only
 for year in range(2008, 2013):
-    print(f"Downloading {year}...")
+    print(f"Downloading chl {year}...")
     copernicusmarine.subset(
         dataset_id        = "cmems_mod_bal_bgc_my_P1D-m",
         variables         = ["chl"],
@@ -77,15 +89,18 @@ for year in range(2008, 2013):
         maximum_longitude = 31.0,
         minimum_latitude  = 53.5,
         maximum_latitude  = 66.0,
+        minimum_depth     = 0.0,
+        maximum_depth     = 0.5,
         start_datetime    = f"{year}-01-01T00:00:00",
         end_datetime      = f"{year}-12-31T00:00:00",
         output_filename   = f"chl_{year}.nc",
         output_directory  = "/Users/joosejanatuinen/Desktop/Artikkeli/env_data/chl"
     )
-    print(f"{year} done.")
+    print(f"  {year} done.")
 
+# O2 - daily, surface only
 for year in range(2008, 2013):
-    print(f"Downloading {year}...")
+    print(f"Downloading o2 {year}...")
     copernicusmarine.subset(
         dataset_id        = "cmems_mod_bal_bgc_my_P1D-m",
         variables         = ["o2"],
@@ -93,28 +108,27 @@ for year in range(2008, 2013):
         maximum_longitude = 31.0,
         minimum_latitude  = 53.5,
         maximum_latitude  = 66.0,
+        minimum_depth     = 0.0,
+        maximum_depth     = 0.5,
         start_datetime    = f"{year}-01-01T00:00:00",
         end_datetime      = f"{year}-12-31T00:00:00",
         output_filename   = f"o2_{year}.nc",
         output_directory  = "/Users/joosejanatuinen/Desktop/Artikkeli/env_data/o2"
     )
-    print(f"{year} done.")
+    print(f"  {year} done.")
 
-for year in range(2008, 2013):
-    print(f"Downloading {year}...")
-    copernicusmarine.subset(
-        dataset_id        = "cmems_mod_bal_bgc_my_static",
-        variables         = ["deptho"],
-        minimum_longitude = 15.0,
-        maximum_longitude = 31.0,
-        minimum_latitude  = 53.5,
-        maximum_latitude  = 66.0,
-        start_datetime    = f"{year}-01-01T00:00:00",
-        end_datetime      = f"{year}-12-31T00:00:00",
-        output_filename   = f"deptho_{year}.nc",
-        output_directory  = "/Users/joosejanatuinen/Desktop/Artikkeli/env_data/bathy"
-    )
-    print(f"{year} done.")
+# Bathymetry - static, download once
+print("Downloading bathymetry (static)...")
+copernicusmarine.subset(
+    dataset_id        = "cmems_mod_bal_bgc_my_static",
+    variables         = ["deptho"],
+    minimum_longitude = 15.0,
+    maximum_longitude = 31.0,
+    minimum_latitude  = 53.5,
+    maximum_latitude  = 66.0,
+    output_filename   = "bathy.nc",
+    output_directory  = "/Users/joosejanatuinen/Desktop/Artikkeli/env_data/bathy"
+)
+print("  Bathymetry done.")
 
-print("All done!")
-
+print("\nAll done!")
